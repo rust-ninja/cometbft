@@ -2,6 +2,7 @@ package types
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"math"
@@ -693,6 +694,13 @@ func (vals *ValidatorSet) VerifyCommit(chainID string, blockID BlockID,
 
 		// Validate signature.
 		voteSignBytes := commit.VoteSignBytes(chainID, int32(idx))
+		//print the commit json object to console
+		jsonData, err := json.Marshal(commit)
+		if err != nil {
+			fmt.Println(err)
+		}
+		fmt.Println("commit object:", string(jsonData))
+
 		fmt.Println("voteSignBytes from VerifyCommit cometbft")
 		fmt.Println("voteSignBytes len", fmt.Sprintf("voteSignBytes len %v", len(voteSignBytes)))
 		if !val.PubKey.VerifySignature(voteSignBytes, commitSig.Signature) {
