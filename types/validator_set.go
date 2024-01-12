@@ -718,6 +718,7 @@ func (vals *ValidatorSet) VerifyCommit(chainID string, blockID BlockID,
 		}
 		fmt.Println("bz1 len:", len(bz1))
 
+		fmt.Println("bz1 Height:", pb.Height)
 		pb.Height = 1
 		bz2, err2 := protoio.MarshalDelimited(&pb)
 		if err2 != nil {
@@ -725,6 +726,7 @@ func (vals *ValidatorSet) VerifyCommit(chainID string, blockID BlockID,
 		}
 		fmt.Println("bz2 len:", len(bz2))
 
+		fmt.Println("bz2 Round:", pb.Round)
 		pb.Round = 1
 		bz3, err3 := protoio.MarshalDelimited(&pb)
 		if err3 != nil {
@@ -732,6 +734,7 @@ func (vals *ValidatorSet) VerifyCommit(chainID string, blockID BlockID,
 		}
 		fmt.Println("bz3 len:", len(bz3))
 
+		fmt.Println("bz4 BlockID:", pb.BlockID)
 		pb.BlockID = nil
 		bz4, err4 := protoio.MarshalDelimited(&pb)
 		if err4 != nil {
@@ -739,6 +742,7 @@ func (vals *ValidatorSet) VerifyCommit(chainID string, blockID BlockID,
 		}
 		fmt.Println("bz4 len:", len(bz4))
 
+		fmt.Println("bz5 BlockID:", pb.ChainID)
 		pb.ChainID = ""
 		bz5, err5 := protoio.MarshalDelimited(&pb)
 		if err5 != nil {
