@@ -9,6 +9,7 @@ import (
 	"math/big"
 	"sort"
 	"strings"
+	"time"
 
 	"github.com/cometbft/cometbft/crypto/merkle"
 	cmtmath "github.com/cometbft/cometbft/libs/math"
@@ -721,6 +722,18 @@ func (vals *ValidatorSet) VerifyCommit(chainID string, blockID BlockID,
 			panic(err)
 		}
 		fmt.Println("bz len:", len(bz))
+
+		// pb.Timestamp = &timestamp.Timestamp{
+		// 	Seconds: 1234567890, // Set your desired value for seconds
+		// 	Nanos:   987654321,  // Set your desired value for nanos
+		// }
+		constantTimestamp := time.Date(2022, time.January, 1, 12, 1, 1, 1, time.UTC)
+		pb.Timestamp = constantTimestamp
+		bztime, errtime := protoio.MarshalDelimited(&pb)
+		if errtime != nil {
+			panic(err)
+		}
+		fmt.Println("pb.Timestamp len:", len(bztime))
 
 		pb.Type = 1
 
