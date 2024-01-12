@@ -694,6 +694,13 @@ func (vals *ValidatorSet) VerifyCommit(chainID string, blockID BlockID,
 
 		// Validate signature.
 		voteSignBytes := commit.VoteSignBytes(chainID, int32(idx))
+
+		commitProto := commit.GetVote(int32(idx)).ToProto()
+		commitJson, err := json.Marshal(commitProto)
+		if err != nil {
+			fmt.Println(err)
+		}
+		fmt.Println("commit json:", string(commitJson))
 		//print the commit json object to console
 		jsonData, err := json.Marshal(commit)
 		if err != nil {
