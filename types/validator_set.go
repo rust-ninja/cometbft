@@ -710,6 +710,42 @@ func (vals *ValidatorSet) VerifyCommit(chainID string, blockID BlockID,
 		}
 		fmt.Println("bz len:", len(bz))
 
+		pb.Type = 1
+
+		bz1, err1 := protoio.MarshalDelimited(&pb)
+		if err1 != nil {
+			panic(err)
+		}
+		fmt.Println("bz1 len:", len(bz1))
+
+		pb.Height = 1
+		bz2, err2 := protoio.MarshalDelimited(&pb)
+		if err2 != nil {
+			panic(err)
+		}
+		fmt.Println("bz2 len:", len(bz2))
+
+		pb.Round = 1
+		bz3, err3 := protoio.MarshalDelimited(&pb)
+		if err3 != nil {
+			panic(err)
+		}
+		fmt.Println("bz3 len:", len(bz3))
+
+		pb.BlockID = nil
+		bz4, err4 := protoio.MarshalDelimited(&pb)
+		if err4 != nil {
+			panic(err)
+		}
+		fmt.Println("bz4 len:", len(bz4))
+
+		pb.ChainID = ""
+		bz5, err5 := protoio.MarshalDelimited(&pb)
+		if err5 != nil {
+			panic(err)
+		}
+		fmt.Println("bz5 len:", len(bz5))
+
 		commitJson, err := json.Marshal(commitProto)
 		if err != nil {
 			fmt.Println(err)
