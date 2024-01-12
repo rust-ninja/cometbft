@@ -736,13 +736,14 @@ func (vals *ValidatorSet) VerifyCommit(chainID string, blockID BlockID,
 			panic(err)
 		}
 		fmt.Println("timestampProto:", timestampProto)
-		timestampProtoBytes, errBytes := protoio.MarshalDelimited(&pb)
+
+		timestampProtoBytes, errBytes := timestampProto.Marshal()
 		if errBytes != nil {
 			panic(errBytes)
 		}
 		fmt.Println("timestampProtoBytes len:", len(timestampProtoBytes))
-		fmt.Println("timestampProtoBytes.Secods: ", timestampProto.Seconds)
-		fmt.Println("timestampProtoBytes.Nanos: ", timestampProto.Nanos)
+		fmt.Println("timestampProto.Secods: ", timestampProto.Seconds)
+		fmt.Println("timestampProto.Nanos: ", timestampProto.Nanos)
 		fmt.Println("pb.Timestamp.Unix: ", pb.Timestamp.Unix())
 		fmt.Println("pb.Timestamp.Nanosecond: ", pb.Timestamp.Nanosecond())
 		pb.Timestamp = constantTimestamp
