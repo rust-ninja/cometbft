@@ -699,6 +699,18 @@ func (vals *ValidatorSet) VerifyCommit(chainID string, blockID BlockID,
 		commitProto := commit.GetVote(int32(idx)).ToProto()
 
 		pb := CanonicalizeVote(chainID, commitProto)
+
+		fmt.Println("_________________________________________________________")
+		fmt.Println("ChainID:", pb.ChainID)
+		fmt.Println("Timestamp:", pb.Timestamp)
+		fmt.Println("Round:", pb.Round)
+		fmt.Println("Height:", pb.Height)
+		fmt.Println("Type:", pb.Type)
+		fmt.Println("pb.BlockID.Hash:", pb.BlockID.Hash)
+		fmt.Println("pb.BlockID.PartSetHeader.Hash:", pb.BlockID.PartSetHeader.Hash)
+		fmt.Println("pb.BlockID.PartSetHeader.Total:", pb.BlockID.PartSetHeader.Total)
+		fmt.Println("_________________________________________________________")
+
 		pmJson, err := json.Marshal(commitProto)
 		if err != nil {
 			fmt.Println(err)
@@ -716,79 +728,72 @@ func (vals *ValidatorSet) VerifyCommit(chainID string, blockID BlockID,
 		if err1 != nil {
 			panic(err)
 		}
-		fmt.Println("bz1 len:", len(bz1))
+		fmt.Println("pb.Type len:", len(bz1))
 
-		fmt.Println("bz0 BlockID:", pb.BlockID)
-		fmt.Println("bz0 BlockID.Hash:", pb.BlockID.Hash)
-		pb.BlockID.Hash = nil
+		// fmt.Println("bz0 BlockID:", pb.BlockID)
+		// fmt.Println("bz0 BlockID.Hash:", pb.BlockID.Hash)
+		pb.BlockID.Hash = bytes.Repeat([]byte{0}, 32)
 		bzx1, errx1 := protoio.MarshalDelimited(&pb)
 		if errx1 != nil {
 			panic(errx1)
 		}
-		fmt.Println("BlockID.Hash nil. len:", len(bzx1))
+		fmt.Println("BlockID.Hash. len:", len(bzx1))
 
 		// fmt.Println("bz0 BlockID:", pb.BlockID)
-		fmt.Println("bz0 BlockID.PartSetHeader.Hash:", pb.BlockID.PartSetHeader.Hash)
-		pb.BlockID.PartSetHeader.Hash = nil
+		// fmt.Println("bz0 BlockID.PartSetHeader.Hash:", pb.BlockID.PartSetHeader.Hash)
+		pb.BlockID.PartSetHeader.Hash = bytes.Repeat([]byte{0}, 32)
 		bzx2, errx2 := protoio.MarshalDelimited(&pb)
 		if errx2 != nil {
 			panic(errx2)
 		}
-		fmt.Println("BlockID.PartSetHeader.Hash nil. len:", len(bzx2))
+		fmt.Println("BlockID.PartSetHeader.Hash. len:", len(bzx2))
 
-		// fmt.Println("bz0 BlockID:", pb.BlockID)
-		fmt.Println("bz0 BlockID.PartSetHeader.Total:", pb.BlockID.PartSetHeader.Total)
 		pb.BlockID.PartSetHeader.Total = 0
 		bzx3, errx3 := protoio.MarshalDelimited(&pb)
 		if errx3 != nil {
 			panic(errx3)
 		}
-		fmt.Println("BlockID.PartSetHeader.Total nil. len:", len(bzx3))
+		fmt.Println("BlockID.PartSetHeader.Total. len:", len(bzx3))
 
-		fmt.Println("bz0 BlockID:", pb.BlockID)
 		pb.BlockID = nil
 		bz0, err0 := protoio.MarshalDelimited(&pb)
 		if err0 != nil {
 			panic(err)
 		}
-		fmt.Println("bz0 len:", len(bz0))
-
-		fmt.Println("bz1 Height:", pb.Height)
+		fmt.Println("pb.BlockID len:", len(bz0))
 
 		pb.Height = 1
 		bz2, err2 := protoio.MarshalDelimited(&pb)
 		if err2 != nil {
 			panic(err)
 		}
-		fmt.Println("bz2 len:", len(bz2))
+		fmt.Println("pb.Height len:", len(bz2))
 
-		fmt.Println("bz2 Round:", pb.Round)
 		pb.Round = 1
 		bz3, err3 := protoio.MarshalDelimited(&pb)
 		if err3 != nil {
 			panic(err)
 		}
-		fmt.Println("bz3 len:", len(bz3))
+		fmt.Println("pb.Round:", len(bz3))
 
-		fmt.Println("bz5 BlockID:", pb.ChainID)
 		pb.ChainID = ""
 		bz5, err5 := protoio.MarshalDelimited(&pb)
 		if err5 != nil {
 			panic(err)
 		}
-		fmt.Println("bz5 len:", len(bz5))
+		fmt.Println("bz5 BlockID len:", len(bz5))
 
-		commitJson, err := json.Marshal(commitProto)
-		if err != nil {
-			fmt.Println(err)
-		}
-		fmt.Println("commit json:", string(commitJson))
-		//print the commit json object to console
-		jsonData, err := json.Marshal(commit)
-		if err != nil {
-			fmt.Println(err)
-		}
-		fmt.Println("commit object:", string(jsonData))
+		// commitJson, err := json.Marshal(commitProto)
+		// if err != nil {
+		// 	fmt.Println(err)
+		// }
+		// fmt.Println("commit json:", string(commitJson))
+		// //print the commit json object to console
+		// jsonData, err := json.Marshal(commit)
+		// if err != nil {
+		// 	fmt.Println(err)
+		// }
+		// fmt.Println("commit object:", string(jsonData))
 
 		fmt.Println("voteSignBytes from VerifyCommit cometbft")
 		fmt.Println("voteSignBytes len", fmt.Sprintf("voteSignBytes len %v", len(voteSignBytes)))
