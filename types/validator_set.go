@@ -15,6 +15,9 @@ import (
 	cmtmath "github.com/cometbft/cometbft/libs/math"
 	"github.com/cometbft/cometbft/libs/protoio"
 	cmtproto "github.com/cometbft/cometbft/proto/tendermint/types"
+
+	// protobuf "github.com/gogo/protobuf/proto"
+	prototypes "github.com/cosmos/gogoproto/types"
 )
 
 const (
@@ -728,6 +731,20 @@ func (vals *ValidatorSet) VerifyCommit(chainID string, blockID BlockID,
 		// 	Nanos:   987654321,  // Set your desired value for nanos
 		// }
 		constantTimestamp := time.Date(2022, time.January, 1, 12, 1, 1, 1, time.UTC)
+		timestampProto, err := prototypes.TimestampProto(pb.Timestamp)
+		if err != nil {
+			panic(err)
+		}
+		fmt.Println("timestampProto:", timestampProto)
+		timestampProtoBytes, errBytes := protoio.MarshalDelimited(&pb)
+		if errBytes != nil {
+			panic(errBytes)
+		}
+		fmt.Println("timestampProtoBytes len:", len(timestampProtoBytes))
+		fmt.Println("timestampProtoBytes.Secods: ", timestampProto.Seconds)
+		fmt.Println("timestampProtoBytes.Nanos: ", timestampProto.Nanos)
+		fmt.Println("pb.Timestamp.Unix: ", pb.Timestamp.Unix())
+		fmt.Println("pb.Timestamp.Nanosecond: ", pb.Timestamp.Nanosecond())
 		pb.Timestamp = constantTimestamp
 		bztime, errtime := protoio.MarshalDelimited(&pb)
 		if errtime != nil {
