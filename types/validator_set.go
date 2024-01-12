@@ -12,6 +12,7 @@ import (
 
 	"github.com/cometbft/cometbft/crypto/merkle"
 	cmtmath "github.com/cometbft/cometbft/libs/math"
+	"github.com/cometbft/cometbft/libs/protoio"
 	cmtproto "github.com/cometbft/cometbft/proto/tendermint/types"
 )
 
@@ -696,6 +697,19 @@ func (vals *ValidatorSet) VerifyCommit(chainID string, blockID BlockID,
 		voteSignBytes := commit.VoteSignBytes(chainID, int32(idx))
 
 		commitProto := commit.GetVote(int32(idx)).ToProto()
+
+		pb := CanonicalizeVote(chainID, commitProto)
+		pmJson, err := json.Marshal(commitProto)
+		if err != nil {
+			fmt.Println(err)
+		}
+		fmt.Println("pm json:", string(pmJson))
+		bz, err := protoio.MarshalDelimited(&pb)
+		if err != nil {
+			panic(err)
+		}
+		fmt.Println("bz len:", len(bz))
+
 		commitJson, err := json.Marshal(commitProto)
 		if err != nil {
 			fmt.Println(err)
