@@ -3,6 +3,10 @@ package types
 import (
 	"testing"
 
+	"fmt"
+	"time"
+
+	prototypes "github.com/cosmos/gogoproto/types"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -96,4 +100,57 @@ func TestValidatorValidateBasic(t *testing.T) {
 			assert.NoError(t, err)
 		}
 	}
+}
+
+func TestValidatorProtoBufTimestamp(t *testing.T) {
+	// val, _ := RandValidator(true, 100)
+	// testCases := []struct {
+	// 	msg      string
+	// 	v1       *Validator
+	// 	expPass1 bool
+	// 	expPass2 bool
+	// }{
+	// 	{"success validator", val, true, true},
+	// 	{"failure empty", &Validator{}, false, false},
+	// 	{"failure nil", nil, false, false},
+	// }
+	// for _, tc := range testCases {
+	// 	protoVal, err := tc.v1.ToProto()
+
+	// 	if tc.expPass1 {
+	// 		require.NoError(t, err, tc.msg)
+	// 	} else {
+	// 		require.Error(t, err, tc.msg)
+	// 	}
+
+	// 	val, err := ValidatorFromProto(protoVal)
+	// 	if tc.expPass2 {
+	// 		require.NoError(t, err, tc.msg)
+	// 		require.Equal(t, tc.v1, val, tc.msg)
+	// 	} else {
+	// 		require.Error(t, err, tc.msg)
+	// 	}
+	// }
+
+	// xx := &Timestamp{
+	// 	Seconds: int64(1705094049),
+	// 	Nanos:   int32(495856000),
+	// }
+
+	// constantTimestamp := time.Date(2024, time.January, 12, 21, 13, 1705094049, 195856000, time.UTC)
+	constantTimestamp := time.Now()
+	fmt.Println("constantTimestamp Nanosecond:", constantTimestamp.Nanosecond())
+	timestampProto, err := prototypes.TimestampProto(constantTimestamp)
+	fmt.Println("timestampProto:", timestampProto.Nanos)
+	fmt.Println("timestampProto:", timestampProto)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("timestampProto:", timestampProto)
+	timestampProtoBytes, errBytes := timestampProto.Marshal()
+	if errBytes != nil {
+		panic(errBytes)
+	}
+	fmt.Println("timestampProtoBytes len:", len(timestampProtoBytes))
+	require.Equal(t, 11, len(timestampProtoBytes), "timestampProtoBytes len")
 }

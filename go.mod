@@ -297,4 +297,4 @@ require (
 	mvdan.cc/unparam v0.0.0-20220706161116-678bad134442 // indirect
 )
 
-replace github.com/cosmos/gogoproto v1.4.1 => github.com/rustninja/gogoproto v1.4.1-sfixed-len-tag
+replace github.com/cosmos/gogoproto v1.4.1 => github.com/rustninja/gogoproto v1.4.1-fixed-len-timestamp-proto-tag
