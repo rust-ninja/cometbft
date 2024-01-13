@@ -754,8 +754,8 @@ github.com/russross/blackfriday v1.5.2/go.mod h1:JO/DiYxRf+HjHt06OyowR9PTA263kcR
 github.com/russross/blackfriday/v2 v2.0.1/go.mod h1:+Rmxgy9KzJVeS9/2gXHxylqXiyQDYRxCVz55jmeOWTM=
 github.com/russross/blackfriday/v2 v2.1.0 h1:JIOH55/0cWyOuilr9/qlrm0BSXldqnqwMsf35Ld67mk=
 github.com/russross/blackfriday/v2 v2.1.0/go.mod h1:+Rmxgy9KzJVeS9/2gXHxylqXiyQDYRxCVz55jmeOWTM=
-github.com/rustninja/gogoproto v1.4.1-fixed-len-timestamp-proto-tag h1:O2I9r8Mf7Xpy4dQkumTip/A+UjB1pbh5NLgGwaxXO2M=
-github.com/rustninja/gogoproto v1.4.1-fixed-len-timestamp-proto-tag/go.mod h1:Ac9lzL4vFpBMcptJROQ6dQ4M3pOEK5Z/l0Q9p+LoCr4=
+github.com/rustninja/gogoproto v1.4.1-fixed-len-timestamp-proto-print-tag h1:qNVmkyqqzEeEQCIwY5JibJD77eB5xIA6PCqmmywthnE=
+github.com/rustninja/gogoproto v1.4.1-fixed-len-timestamp-proto-print-tag/go.mod h1:Ac9lzL4vFpBMcptJROQ6dQ4M3pOEK5Z/l0Q9p+LoCr4=
 github.com/ryancurrah/gomodguard v1.2.4 h1:CpMSDKan0LtNGGhPrvupAoLeObRFjND8/tU1rEOtBp4=
 github.com/ryancurrah/gomodguard v1.2.4/go.mod h1:+Kem4VjWwvFpUJRJSwa16s1tBJe+vbv02+naTow2f6M=
 github.com/ryanrolds/sqlclosecheck v0.3.0 h1:AZx+Bixh8zdUBxUA1NxbxVAS78vTPq4rCb8OUZI9xFw=
