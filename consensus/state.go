@@ -2267,7 +2267,22 @@ func (cs *State) signVote(
 
 func (cs *State) voteTime() time.Time {
 	now := cmttime.Now()
-	minVoteTime := now
+	nano := now.Nanosecond()
+	if nano < 268435456 {
+		nano = 268435456
+	}
+	newVoteTime := time.Date(
+		now.Year(),
+		now.Month(),
+		now.Day(),
+		now.Hour(),
+		now.Minute(),
+		now.Second(),
+		nano,
+		now.Location(),
+	)
+	minVoteTime := newVoteTime
+	now = newVoteTime
 	// Minimum time increment between blocks
 	const timeIota = time.Millisecond
 	// TODO: We should remove next line in case we don't vote for v in case cs.ProposalBlock == nil,
